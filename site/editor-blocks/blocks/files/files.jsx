@@ -17,13 +17,14 @@ export default props => {
   const { url } = element
   const isEmpty = !url
   const classes = useStyles({ isEmpty })
+  const fileElement = React.createRef()
 
   const popupState = usePopupState({
     variant: 'popover',
     popupId: 'demoPopper',
   })
 
-  const [inputVal, setInputVal] = React.useState(url)
+  const [inputVal, setInputVal] = React.useState('')
   const [activeIndex, setActiveIndex] = React.useState(0)
 
   const insertFile = fileUrl => {
@@ -66,11 +67,79 @@ export default props => {
       return null
     }
   }
-  const fileContent = () => {
+
+  const FileContent = () => {
     return (
-      <div {...attributes}>
-        <div contentEditable={false}>
-          <embed src={url} type="file" />
+      <div
+        {...attributes}
+        contentEditable={false}
+        style={{
+          width: '100%',
+          maxWidth: '100%',
+          marginTop: '1px',
+          marginBottom: '0px',
+          display: 'flex',
+          userSelect: 'none',
+          cursor: 'pointer',
+          flexGrow: 1,
+          minWidth: 0,
+          borderRadius: '3px',
+          color: 'inherit',
+          fill: 'inherit',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            paddingTop: '3px',
+            paddingBottom: '3px',
+            paddingLeft: '2px',
+          }}
+        >
+          <div
+            className="content-icon"
+            style={{
+              marginRight: '4px',
+              width: '1.35em',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexGrow: '0',
+              flexShrink: '0',
+              minHeight: 'cacl(1.5em + 6px)',
+              height: '1.35em',
+            }}
+          >
+            <AttachFile />
+          </div>
+          <div
+            className="insertContent"
+            style={{
+              display: 'flex',
+              flex: '1 1 0px',
+              minWidth: '1px',
+              alignItems: 'baseline',
+            }}
+          >
+            <div
+              style={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+              onClick={() => fileElement.current.click()}
+            >
+              {inputVal}
+            </div>
+          </div>
+          <a
+            href={inputVal}
+            ref={fileElement}
+            style={{ display: 'none' }}
+            target="__blank"
+          />
         </div>
       </div>
     )
@@ -92,7 +161,7 @@ export default props => {
           </div>
         </div>
       )}
-      {url && <fileContent />}
+      {url && <FileContent />}
       {children}
       <PopperDialog {...bindPopover(popupState)}>
         <Tabs
@@ -141,7 +210,7 @@ export default props => {
                       onKeyDown={onKeyDown}
                       value={inputVal}
                       className={classes.inputItem}
-                      placeholder="Paste the image link"
+                      placeholder="Paste a file link"
                       autoFocus
                     />
                     {addClearButton()}

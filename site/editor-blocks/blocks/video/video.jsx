@@ -189,7 +189,7 @@ export default props => {
                       onKeyDown={onKeyDown}
                       value={inputVal}
                       className={classes.inputItem}
-                      placeholder="Paste a file link"
+                      placeholder="Paste the video link"
                       autoFocus
                     />
                     {addClearButton()}

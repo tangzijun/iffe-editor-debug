@@ -6,8 +6,7 @@ import { withHistory } from 'slate-history'
 
 import { withImages } from '../editor-blocks/plugins/with-image'
 import { withVideo } from '../editor-blocks/plugins/with-video'
-
-import HintProcessor from '../editor-blocks/processor/HintProcessor'
+import { withFile } from '../editor-blocks/plugins/with-file'
 
 import { Button, Icon, Toolbar } from '../components'
 import { Hint } from '../editor-blocks/blocks/hint/index'
@@ -29,7 +28,8 @@ const RichTextExample = () => {
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(
-    () => withVideo(withImages(withHistory(withReact(createEditor())))),
+    () =>
+      withFile(withVideo(withImages(withHistory(withReact(createEditor()))))),
     []
   )
 

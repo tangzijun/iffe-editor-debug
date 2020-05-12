@@ -206,7 +206,7 @@ export default props => {
                     type="file"
                     hidden
                     ref={fileInputElment}
-                    accept=".jpg, .jpeg, .png, .gif, .svg"
+                    accept="image/*"
                     onChange={event => handleImgUpload(event)}
                   />
                   <div
@@ -217,7 +217,7 @@ export default props => {
                       fileInputElment.current.click()
                     }}
                   >
-                    Choose a file
+                    Choose an image
                   </div>
                 </div>
               </TabPanel>

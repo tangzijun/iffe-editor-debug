@@ -217,7 +217,7 @@ export default props => {
                       fileInputElment.current.click()
                     }}
                   >
-                    Choose an image
+                    Choose a file
                   </div>
                 </div>
               </TabPanel>

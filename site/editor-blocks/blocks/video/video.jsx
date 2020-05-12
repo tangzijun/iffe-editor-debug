@@ -202,7 +202,7 @@ export default props => {
                     tabIndex="0"
                     onClick={handleClick}
                   >
-                    Embed link
+                    Embed video
                   </div>
                 </div>
                 <div className={classes.supportTypes}>
@@ -228,7 +228,7 @@ export default props => {
                       fileInputElment.current.click()
                     }}
                   >
-                    Choose an image
+                    Choose a Video
                   </div>
                 </div>
               </TabPanel>

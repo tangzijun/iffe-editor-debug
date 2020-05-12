@@ -24,6 +24,7 @@ export default props => {
   })
 
   const [inputVal, setInputVal] = React.useState(url)
+  const [activeIndex, setActiveIndex] = React.useState(0)
 
   const insertFile = fileUrl => {
     const path = ReactEditor.findPath(editor, element)
@@ -42,6 +43,29 @@ export default props => {
     }
   }
 
+  const renderBottomLine = () => {
+    return <div className={classes.loadLine} />
+  }
+
+  const addClearButton = () => {
+    if (inputVal !== '') {
+      return (
+        <div
+          onClick={() => setInputVal('')}
+          role="button"
+          style={{
+            borderRadius: '50%',
+            cursor: 'pointer',
+            opacity: 0.5,
+          }}
+        >
+          x
+        </div>
+      )
+    } else {
+      return null
+    }
+  }
   const fileContent = () => {
     return (
       <div {...attributes}>
@@ -71,7 +95,10 @@ export default props => {
       {url && <fileContent />}
       {children}
       <PopperDialog {...bindPopover(popupState)}>
-        <Tabs>
+        <Tabs
+          selectedIndex={activeIndex}
+          onSelect={tabIndex => setActiveIndex(tabIndex)}
+        >
           <div className={classes.fileCard}>
             <div className={classes.wrapper}>
               <div className={classes.menuTabs}>
@@ -81,12 +108,13 @@ export default props => {
                       <div className={classes.tabTitle} role="button">
                         Upload
                       </div>
+                      {activeIndex === 0 ? renderBottomLine() : null}
                     </div>
                   </Tab>
                   <Tab style={{ outline: 'none' }}>
                     <div className={classes.tabPosition}>
                       <div className={classes.tabTitle}>Embed link</div>
-                      <div className={classes.loadLine} />
+                      {activeIndex === 1 ? renderBottomLine() : null}
                     </div>
                   </Tab>
                 </TabList>

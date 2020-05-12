@@ -16,7 +16,7 @@ export default props => {
   const { element, children, attributes } = props
   const { url } = element
   const isEmpty = !url
-  const classes = useStyles()
+  const classes = useStyles({ isEmpty })
 
   const popupState = usePopupState({
     variant: 'popover',
@@ -25,9 +25,9 @@ export default props => {
 
   const [inputVal, setInputVal] = React.useState(url)
 
-  const insertFile = () => {
+  const insertFile = fileUrl => {
     const path = ReactEditor.findPath(editor, element)
-    Transforms.setNodes(editor, { url: inputVal }, { at: path })
+    Transforms.setNodes(editor, { url: fileUrl }, { at: path })
   }
 
   const handleClick = () => {
@@ -53,10 +53,10 @@ export default props => {
   }
 
   return (
-    <div className={classes.fileRepo}>
-      <div className={classes.fileBlock} contentEditable={false}>
-        <div className={classes.fileContent}>
-          {!url && (
+    <div className={classes.fileRepo} {...props} contentEditable={false}>
+      {!url && (
+        <div className={classes.fileBlock}>
+          <div className={classes.fileContent}>
             <div
               role="button"
               className={classes.fileButton}
@@ -65,11 +65,11 @@ export default props => {
               <AttachFile className={classes.fileIcon} />
               <span className={classes.fileText}>Upload or Embed a File</span>
             </div>
-          )}
-          {url && <fileContent />}
-          {children}
+          </div>
         </div>
-      </div>
+      )}
+      {url && <fileContent />}
+      {children}
       <PopperDialog {...bindPopover(popupState)}>
         <Tabs>
           <div className={classes.fileCard}>

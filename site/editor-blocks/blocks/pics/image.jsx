@@ -29,7 +29,7 @@ export default props => {
   })
 
   const [inputVal, setInputVal] = React.useState('')
-  const [activeIndex, setActiveIndex] = React.useState(1)
+  const [activeIndex, setActiveIndex] = React.useState(0)
   const [submitLoading, setSubmitLoading] = React.useState(false)
   const fileInputElment = React.createRef()
 
@@ -168,7 +168,10 @@ export default props => {
       )}
       {children}
       <PopperDialog {...bindPopover(popupState)}>
-        <Tabs>
+        <Tabs
+          selectedIndex={activeIndex}
+          onSelect={tabIndex => setActiveIndex(tabIndex)}
+        >
           <div className={classes.imgCard}>
             <div className={classes.wrapper}>
               <div className={classes.menuTabs}>
@@ -177,26 +180,20 @@ export default props => {
                     style={{
                       outline: 'none',
                     }}
-                    key={1}
-                    onClick={() => setActiveIndex(1)}
                   >
                     <div className={classes.tabPosition}>
                       <div className={classes.tabTitle} role="button">
                         Upload
                       </div>
-                      {activeIndex === 1 ? renderBottomLine() : null}
+                      {activeIndex === 0 ? renderBottomLine() : null}
                     </div>
                   </Tab>
-                  <Tab
-                    style={{ outline: 'none' }}
-                    key={2}
-                    onClick={() => setActiveIndex(2)}
-                  >
+                  <Tab style={{ outline: 'none' }}>
                     <div className={classes.tabPosition}>
                       <div className={classes.tabTitle} role="button">
                         Embed link
                       </div>
-                      {activeIndex === 2 ? renderBottomLine() : null}
+                      {activeIndex === 1 ? renderBottomLine() : null}
                     </div>
                   </Tab>
                 </TabList>

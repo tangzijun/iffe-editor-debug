@@ -91,7 +91,7 @@ export default props => {
         className={classes.insertBlock}
       >
         <div className={classes.insertWrapper}>
-          <div className={classes.inputContent}>
+          <div className={classes.insertContent}>
             <ReactPlayer
               className={classes.reactPlayer}
               height="100%"
@@ -126,7 +126,7 @@ export default props => {
   }
 
   return (
-    <div className={classes.videoRepo} {...props} contentEditable={false}>
+    <div className={classes.videoRepo} {...attributes} contentEditable={false}>
       {!url && (
         <div className={classes.videoBlock}>
           <div className={classes.videoContent}>

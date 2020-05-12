@@ -108,35 +108,14 @@ export default props => {
       <div
         {...attributes}
         contentEditable={false}
-        style={{
-          display: 'flex',
-          boxSizing: 'border-box',
-          outline: 'none',
-          position: 'relative',
-          overflow: 'hidden',
-          flexGrow: 1,
-        }}
+        className={classes.imgContentBlock}
       >
-        <div
-          style={{
-            boxSizing: 'border-box',
-            position: 'relative',
-            cursor: 'pointer',
-            width: '100%',
-            height: '100%',
-          }}
-        >
+        <div className={classes.imgContentWrapper}>
           <embed
             onClick={handleImgClick}
             onDoubleClick={handleImgDoubleClick}
             src={url}
-            style={{
-              width: '100%',
-              display: 'block',
-              borderRadius: '1px',
-              objectFit: 'cover',
-              pointerEvents: 'auto',
-            }}
+            className={classes.imgContent}
           />
         </div>
       </div>

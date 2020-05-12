@@ -42,6 +42,28 @@ const useStyles = makeStyles({
     color: 'rgba(55, 53, 47, 0.6)',
     position: 'relative',
   },
+  imgContentBlock: {
+    display: 'flex',
+    boxSizing: 'border-box',
+    outline: 'none',
+    position: 'relative',
+    overflow: 'hidden',
+    flexGrow: 1,
+  },
+  imgContentWrapper: {
+    boxSizing: 'border-box',
+    position: 'relative',
+    cursor: 'pointer',
+    width: '100%',
+    height: '100%',
+  },
+  imgContent: {
+    width: '100%',
+    display: 'block',
+    borderRadius: '1px',
+    objectFit: 'cover',
+    pointerEvents: 'auto',
+  },
   imageButton: {
     width: '100%',
     boxSizing: 'border-box',

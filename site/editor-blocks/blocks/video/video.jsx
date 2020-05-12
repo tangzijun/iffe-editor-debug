@@ -88,40 +88,12 @@ export default props => {
       <div
         {...attributes}
         contentEditable={false}
-        style={{
-          display: 'flex',
-          position: 'relative',
-          overflow: 'hidden',
-          flexGrow: 1,
-          cursor: 'pointer',
-        }}
+        className={classes.insertBlock}
       >
-        <div
-          style={{
-            display: 'block',
-            width: '100%',
-            pointerEvents: 'auto',
-            backgroundColor: 'rgb(242, 241, 238)',
-          }}
-        >
-          <div
-            style={{
-              position: 'relative',
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              minHeight: '100px',
-              height: 0,
-              paddingTop: '40.2%',
-            }}
-          >
+        <div className={classes.insertWrapper}>
+          <div className={classes.inputContent}>
             <ReactPlayer
-              style={{
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                borderRadius: '1px',
-              }}
+              className={classes.reactPlayer}
               height="100%"
               width="100%"
               url={url}

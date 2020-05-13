@@ -26,6 +26,56 @@ export default props => {
 
   const [inputVal, setInputVal] = React.useState('')
   const [activeIndex, setActiveIndex] = React.useState(0)
+  const [submitLoading, setSubmitLoading] = React.useState(false)
+  const fileInputElment = React.createRef()
+
+  const handleFileUpload = async event => {
+    const files = [...event.target.files]
+    if (files.length === 0) return
+    await setSubmitLoading(true)
+    const result = await Promise.all(
+      files.map(file => {
+        let fUrl = url
+        if (window.createObjectURL !== undefined) {
+          fUrl = window.createObjectURL(file)
+        } else if (window.URL !== undefined) {
+          fUrl = window.URL.createObjectURL(file)
+        } else if (window.webkitURL !== undefined) {
+          fUrl = window.webkitURL.createObjectURL(file)
+        }
+        return fUrl
+      })
+    )
+
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', result)
+    xhr.responseType = 'blob'
+    xhr.onload = () => {
+      console.log(xhr.response)
+      insertFile(xhr.responseURL)
+      popupState.setOpen(false)
+    }
+    xhr.send()
+
+    // xhr.onreadystatechange = () => {
+    //   if(xhr.readyState === 4 && xhr.status === 200){
+    //     const fileBlob = xhr.response
+    //     const fileType = fileBlob.type
+    //     let fileName = null
+    //       /**
+    //        * some basic type judgement
+    //        */
+    //     const formData = new FormData()
+    //     formData.append('file', fileBlob, fileName）
+
+    //     /**
+    //      * upload blod to server, reponse url to component
+    //      */
+
+    //   }
+    // }
+    // xhr.send()
+  }
 
   const insertFile = fileUrl => {
     const path = ReactEditor.findPath(editor, element)
@@ -73,69 +123,22 @@ export default props => {
       <div
         {...attributes}
         contentEditable={false}
-        style={{
-          width: '100%',
-          maxWidth: '100%',
-          marginTop: '1px',
-          marginBottom: '0px',
-          display: 'flex',
-          userSelect: 'none',
-          cursor: 'pointer',
-          flexGrow: 1,
-          minWidth: 0,
-          borderRadius: '3px',
-          color: 'inherit',
-          fill: 'inherit',
-        }}
+        className={classes.insertBlock}
       >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '100%',
-            paddingTop: '3px',
-            paddingBottom: '3px',
-            paddingLeft: '2px',
-          }}
-        >
-          <div
-            className="content-icon"
-            style={{
-              marginRight: '4px',
-              width: '1.35em',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexGrow: '0',
-              flexShrink: '0',
-              minHeight: 'cacl(1.5em + 6px)',
-              height: '1.35em',
-            }}
-          >
+        <div className={classes.insertContainer}>
+          <div className={classes.insertIcon}>
             <AttachFile />
           </div>
-          <div
-            className="insertContent"
-            style={{
-              display: 'flex',
-              flex: '1 1 0px',
-              minWidth: '1px',
-              alignItems: 'baseline',
-            }}
-          >
+          <div className={classes.insertWrapper}>
             <div
-              style={{
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
+              className={classes.insertContent}
               onClick={() => fileElement.current.click()}
             >
-              {inputVal}
+              {url ? url : null}
             </div>
           </div>
           <a
-            href={inputVal}
+            href={url}
             ref={fileElement}
             style={{ display: 'none' }}
             target="__blank"
@@ -192,10 +195,20 @@ export default props => {
             <div className={classes.cardContent}>
               <TabPanel>
                 <div className={classes.uploadWrapper}>
+                  <input
+                    type="file"
+                    hidden
+                    ref={fileInputElment}
+                    accept="*"
+                    onChange={e => handleFileUpload(e)}
+                  />
                   <div
                     className={classes.uploadButton}
                     role="button"
                     tabIndex="0"
+                    onClick={() => {
+                      fileInputElment.current.click()
+                    }}
                   >
                     Choose a File
                   </div>

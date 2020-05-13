@@ -245,6 +245,15 @@ const initialValue = [
     ],
   },
   {
+    type: 'file',
+    url: '',
+    children: [
+      {
+        text: '',
+      },
+    ],
+  },
+  {
     type: 'paragraph',
     children: [{ text: 'Try it out for yourself!' }],
   },

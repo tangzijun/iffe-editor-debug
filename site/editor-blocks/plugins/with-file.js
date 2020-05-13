@@ -5,7 +5,7 @@ const withFile = editor => {
   const { insertData, isVoid } = editor
 
   editor.isVoid = element => {
-    return element.type === 'video' ? true : isVoid(element)
+    return element.type === 'file' ? true : isVoid(element)
   }
 
   editor.insertData = data => {

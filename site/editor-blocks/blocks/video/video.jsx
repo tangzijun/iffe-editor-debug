@@ -146,6 +146,7 @@ export default props => {
           defaultSize={{ width: 576 }}
           className={classes.videoInsert}
           enable={{ left: true, right: true }}
+          contentEditable={false}
         >
           <VideoContent />
         </Resizable>

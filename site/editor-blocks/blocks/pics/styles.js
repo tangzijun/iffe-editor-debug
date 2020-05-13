@@ -9,6 +9,10 @@ const useStyles = makeStyles({
     fontSize: '16px',
     lineHeight: 1.5,
     color: 'rgb(55, 53, 47)',
+    maxWidth: '100%',
+    flexShrink: 0,
+    flexGrow: 1,
+    alignItems: 'center',
   },
   imageBlock: {
     display: 'flex',
@@ -63,6 +67,7 @@ const useStyles = makeStyles({
     borderRadius: '1px',
     objectFit: 'cover',
     pointerEvents: 'auto',
+    maxHeight: '100%',
   },
   imageButton: {
     width: '100%',

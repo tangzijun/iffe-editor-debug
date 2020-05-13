@@ -94,6 +94,9 @@ const useStyles = makeStyles({
     top: '0',
     left: '0',
     borderRadius: '1px',
+    '& video': {
+      objectFit: 'cover',
+    },
   },
   videoCard: {
     display: 'flex',

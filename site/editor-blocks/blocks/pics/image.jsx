@@ -106,12 +106,12 @@ export default props => {
   const ImageContent = () => {
     return (
       <div
+        className={classes.imgContentBlock}
         {...attributes}
         contentEditable={false}
-        className={classes.imgContentBlock}
       >
         <div className={classes.imgContentWrapper}>
-          <embed
+          <img
             onClick={handleImgClick}
             onDoubleClick={handleImgDoubleClick}
             src={url}
@@ -160,8 +160,10 @@ export default props => {
       )}
       {url && (
         <Resizable
+          defaultSize={{ width: 576 }}
           className={classes.imgInsert}
           enable={{ left: true, right: true }}
+          contentEditable={false}
         >
           <ImageContent />
         </Resizable>

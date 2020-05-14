@@ -13,6 +13,8 @@ import isUrl from 'is-url'
 import ReactPlayer from 'react-player'
 import { Resizable } from 're-resizable'
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs'
+import { Modal } from '../modal/modal'
+import { useModal } from '../modal/use-modal'
 
 export default props => {
   const editor = useEditor()
@@ -30,6 +32,7 @@ export default props => {
   const [inputVal, setInputVal] = React.useState('')
   const [activeIndex, setActiveIndex] = React.useState(0)
   const [submitLoading, setSubmitLoading] = React.useState(false)
+  const { show, toggle } = useModal()
   const fileInputElment = React.createRef()
 
   const handleVideoUpload = async event => {
@@ -63,7 +66,7 @@ export default props => {
       insertVideo(inputVal)
       popupState.setOpen(false)
     } else {
-      alert('please enter a valid link')
+      toggle()
     }
   }
 
@@ -74,7 +77,7 @@ export default props => {
         setInputVal('')
         popupState.setOpen(false)
       } else {
-        alert('please enter a valid link')
+        toggle()
       }
     }
   }
@@ -237,6 +240,7 @@ export default props => {
           </div>
         </Tabs>
       </PopperDialog>
+      <Modal show={show} hide={toggle} />
     </div>
   )
 }

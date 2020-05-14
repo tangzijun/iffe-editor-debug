@@ -1,7 +1,7 @@
 import React from 'react'
 import { ReactEditor, useEditor, useSelected, useFocused } from 'slate-react'
 import { useStyles } from './styles'
-import { PanoramaOutlined } from '@material-ui/icons'
+import { PanoramaOutlined, FiberPin } from '@material-ui/icons'
 import {
   usePopupState,
   bindTrigger,
@@ -13,6 +13,8 @@ import imageExtensions from 'image-extensions'
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs'
 import isUrl from 'is-url'
 import { Resizable } from 're-resizable'
+import { Modal } from '../modal/modal'
+import { useModal } from '../modal/use-modal'
 
 export default props => {
   const editor = useEditor()
@@ -23,6 +25,14 @@ export default props => {
   const selected = useSelected()
   const focused = useFocused()
 
+  const imageRef = React.createRef()
+
+  React.useEffect(() => {
+    if (url && imageRef.current) {
+      imageRef.current.setAttribute('src', url)
+    }
+  }, [url, imageRef])
+
   const popupState = usePopupState({
     variant: 'popover',
     popupId: 'demoPopper',
@@ -31,6 +41,7 @@ export default props => {
   const [inputVal, setInputVal] = React.useState('')
   const [activeIndex, setActiveIndex] = React.useState(0)
   const [submitLoading, setSubmitLoading] = React.useState(false)
+  const { show, toggle } = useModal()
   const fileInputElment = React.createRef()
 
   const handleImgUpload = async event => {
@@ -71,7 +82,7 @@ export default props => {
       insertImage(inputVal)
       popupState.setOpen(false)
     } else {
-      alert('please enter a valid link')
+      toggle()
     }
   }
 
@@ -82,7 +93,7 @@ export default props => {
         setInputVal('')
         popupState.setOpen(false)
       } else {
-        alert('please enter a valid pic link')
+        toggle()
       }
     }
   }
@@ -114,7 +125,7 @@ export default props => {
           <img
             onClick={handleImgClick}
             onDoubleClick={handleImgDoubleClick}
-            src={url}
+            ref={imageRef}
             className={classes.imgContent}
           />
         </div>
@@ -144,7 +155,15 @@ export default props => {
 
   return (
     <div {...attributes} contentEditable={false} className={classes.imageRepo}>
-      {!url && (
+      {url ? (
+        <Resizable
+          className={classes.imgInsert}
+          enable={{ left: true, right: true }}
+          contentEditable={false}
+        >
+          <ImageContent />
+        </Resizable>
+      ) : (
         <div className={classes.imageBlock}>
           <div className={classes.imageContent}>
             <div
@@ -157,16 +176,6 @@ export default props => {
             </div>
           </div>
         </div>
-      )}
-      {url && (
-        <Resizable
-          defaultSize={{ width: 576 }}
-          className={classes.imgInsert}
-          enable={{ left: true, right: true }}
-          contentEditable={false}
-        >
-          <ImageContent />
-        </Resizable>
       )}
       {children}
       <PopperDialog {...bindPopover(popupState)}>
@@ -258,6 +267,7 @@ export default props => {
           </div>
         </Tabs>
       </PopperDialog>
+      <Modal show={show} hide={toggle} />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ReactEditor, useEditor, useSelected, useFocused } from 'slate-react'
 import { useStyles } from './styles'
-import { PanoramaOutlined, FiberPin } from '@material-ui/icons'
+import { PanoramaOutlined } from '@material-ui/icons'
 import {
   usePopupState,
   bindTrigger,
@@ -17,6 +17,7 @@ import { Modal } from '../modal/url-check-modal/modal'
 import { ImgPrevModal } from '../modal/img-preview-modal/pre-modal'
 import { useModal } from '../modal/url-check-modal/use-modal'
 import { useImgModal } from '../modal/img-preview-modal/use-modal'
+import { ImageContent } from './image-content'
 
 export default props => {
   const editor = useEditor()
@@ -105,23 +106,8 @@ export default props => {
     }
   }
 
-  const handleImgDoubleClick = async () => {
+  const handleImgDoubleClick = () => {
     trigger()
-  }
-
-  const ImageContent = () => {
-    return (
-      <div className={classes.imgContentBlock} contentEditable={false}>
-        <div className={classes.imgContentWrapper}>
-          <img
-            onClick={handleImgClick}
-            onDoubleClick={handleImgDoubleClick}
-            src={url}
-            className={classes.imgContent}
-          />
-        </div>
-      </div>
-    )
   }
 
   const addClearButton = () => {
@@ -152,7 +138,7 @@ export default props => {
           enable={{ left: true, right: true }}
           contentEditable={false}
         >
-          <ImageContent />
+          <ImageContent url={url} onDoubleClick={handleImgDoubleClick} />
         </Resizable>
       ) : (
         <div className={classes.imageBlock}>
@@ -259,12 +245,7 @@ export default props => {
         </Tabs>
       </PopperDialog>
       <Modal show={show} hide={toggle} />
-      <ImgPrevModal
-        imgShow={imgShow}
-        hide={trigger}
-        IUrl={url}
-        contentEditable={false}
-      />
+      <ImgPrevModal imgShow={imgShow} hide={trigger} IUrl={url} />
     </div>
   )
 }

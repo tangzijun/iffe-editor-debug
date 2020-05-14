@@ -10,11 +10,11 @@ import {
 import { Transforms } from 'slate'
 import PopperDialog from '../PopperDialog'
 import isUrl from 'is-url'
-import ReactPlayer from 'react-player'
 import { Resizable } from 're-resizable'
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs'
 import { Modal } from '../modal/url-check-modal/modal'
 import { useModal } from '../modal/url-check-modal/use-modal'
+import { VideoContent } from './video-content'
 
 export default props => {
   const editor = useEditor()
@@ -86,28 +86,6 @@ export default props => {
     return <div className={classes.loadLine} />
   }
 
-  const VideoContent = () => {
-    return (
-      <div
-        {...attributes}
-        contentEditable={false}
-        className={classes.insertBlock}
-      >
-        <div className={classes.insertWrapper}>
-          <div className={classes.insertContent}>
-            <ReactPlayer
-              className={classes.reactPlayer}
-              height="100%"
-              width="100%"
-              url={url}
-              controls
-            />
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   const addClearButton = () => {
     if (inputVal !== '') {
       return (
@@ -151,7 +129,7 @@ export default props => {
           enable={{ left: true, right: true }}
           contentEditable={false}
         >
-          <VideoContent />
+          <VideoContent url={url} />
         </Resizable>
       )}
       {children}

@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     flexShrink: 0,
     flexGrow: 1,
     alignItems: 'center',
+    userSelect: 'none',
   },
   imageBlock: {
     display: 'flex',
@@ -60,6 +61,7 @@ const useStyles = makeStyles({
     cursor: 'pointer',
     width: '100%',
     height: '100%',
+    userSelect: 'none',
   },
   imgContent: {
     width: '100%',
@@ -104,6 +106,7 @@ const useStyles = makeStyles({
     marginTop: '0.5em',
     marginBottom: '0.5em',
     minWidth: '36px',
+    userSelect: 'none',
   },
   imgCard: {
     display: 'flex',

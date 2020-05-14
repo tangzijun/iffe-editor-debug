@@ -13,8 +13,10 @@ import imageExtensions from 'image-extensions'
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs'
 import isUrl from 'is-url'
 import { Resizable } from 're-resizable'
-import { Modal } from '../modal/modal'
-import { useModal } from '../modal/use-modal'
+import { Modal } from '../modal/url-check-modal/modal'
+import { ImgPrevModal } from '../modal/img-preview-modal/pre-modal'
+import { useModal } from '../modal/url-check-modal/use-modal'
+import { useImgModal } from '../modal/img-preview-modal/use-modal'
 
 export default props => {
   const editor = useEditor()
@@ -25,14 +27,6 @@ export default props => {
   const selected = useSelected()
   const focused = useFocused()
 
-  const imageRef = React.createRef()
-
-  React.useEffect(() => {
-    if (url && imageRef.current) {
-      imageRef.current.setAttribute('src', url)
-    }
-  }, [url, imageRef])
-
   const popupState = usePopupState({
     variant: 'popover',
     popupId: 'demoPopper',
@@ -42,6 +36,7 @@ export default props => {
   const [activeIndex, setActiveIndex] = React.useState(0)
   const [submitLoading, setSubmitLoading] = React.useState(false)
   const { show, toggle } = useModal()
+  const { imgShow, trigger } = useImgModal()
   const fileInputElment = React.createRef()
 
   const handleImgUpload = async event => {
@@ -110,22 +105,18 @@ export default props => {
     }
   }
 
-  const handleImgDoubleClick = () => {
-    alert('here should be a raw picture!')
+  const handleImgDoubleClick = async () => {
+    trigger()
   }
 
   const ImageContent = () => {
     return (
-      <div
-        className={classes.imgContentBlock}
-        {...attributes}
-        contentEditable={false}
-      >
+      <div className={classes.imgContentBlock} contentEditable={false}>
         <div className={classes.imgContentWrapper}>
           <img
             onClick={handleImgClick}
             onDoubleClick={handleImgDoubleClick}
-            ref={imageRef}
+            src={url}
             className={classes.imgContent}
           />
         </div>
@@ -268,6 +259,12 @@ export default props => {
         </Tabs>
       </PopperDialog>
       <Modal show={show} hide={toggle} />
+      <ImgPrevModal
+        imgShow={imgShow}
+        hide={trigger}
+        IUrl={url}
+        contentEditable={false}
+      />
     </div>
   )
 }

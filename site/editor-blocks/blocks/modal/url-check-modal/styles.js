@@ -64,6 +64,9 @@ const useStyles = makeStyles({
     border: '1px solid rgba(55, 53, 47, 0.16)',
     width: '100%',
     marginTop: '8px',
+    '&:hover': {
+      background: 'rgba(55, 53, 47, 0.08)',
+    },
   },
 })
 

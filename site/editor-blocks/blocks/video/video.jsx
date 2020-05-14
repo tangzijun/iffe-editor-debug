@@ -13,8 +13,8 @@ import isUrl from 'is-url'
 import ReactPlayer from 'react-player'
 import { Resizable } from 're-resizable'
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs'
-import { Modal } from '../modal/modal'
-import { useModal } from '../modal/use-modal'
+import { Modal } from '../modal/url-check-modal/modal'
+import { useModal } from '../modal/url-check-modal/use-modal'
 
 export default props => {
   const editor = useEditor()

@@ -66,6 +66,19 @@ const useStyles = makeStyles({
     marginTop: '4px',
     marginBottom: '0px',
     position: 'relative',
+    '& span': {
+      opacity: 0,
+    },
+    '&:hover': {
+      '& span': {
+        opacity: 1,
+      },
+    },
+    '&:active': {
+      '& span': {
+        opacity: 1,
+      },
+    },
   },
   insertBlock: {
     display: 'flex',

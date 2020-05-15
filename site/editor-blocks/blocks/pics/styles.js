@@ -108,6 +108,20 @@ const useStyles = makeStyles({
     marginBottom: '0.5em',
     minWidth: '36px',
     userSelect: 'none',
+    transition: 'opacity 300ms ease-in 0s',
+    '& span': {
+      opacity: 0,
+    },
+    '&:hover': {
+      '& span': {
+        opacity: 1,
+      },
+    },
+    '&:active': {
+      '& span': {
+        opacity: 1,
+      },
+    },
   },
   imgCard: {
     display: 'flex',

@@ -34,6 +34,7 @@ export default props => {
   })
 
   const [inputVal, setInputVal] = React.useState('')
+  const [select, setSelect] = React.useState(false)
   const [activeIndex, setActiveIndex] = React.useState(0)
   const [submitLoading, setSubmitLoading] = React.useState(false)
   const { show, toggle } = useModal()
@@ -133,13 +134,7 @@ export default props => {
   return (
     <div {...attributes} contentEditable={false} className={classes.imageRepo}>
       {url ? (
-        <Resizable
-          className={classes.imgInsert}
-          enable={{ left: true, right: true }}
-          contentEditable={false}
-        >
-          <ImageContent url={url} onDoubleClick={handleImgDoubleClick} />
-        </Resizable>
+        <ImageContent url={url} onDoubleClick={handleImgDoubleClick} />
       ) : (
         <div className={classes.imageBlock}>
           <div className={classes.imageContent}>

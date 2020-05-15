@@ -14,6 +14,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
     alignItems: 'center',
     userSelect: 'none',
+    overflow: 'hidden',
   },
   imageBlock: {
     display: 'flex',

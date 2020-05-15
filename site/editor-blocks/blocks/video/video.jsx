@@ -10,7 +10,6 @@ import {
 import { Transforms } from 'slate'
 import PopperDialog from '../PopperDialog'
 import isUrl from 'is-url'
-import { Resizable } from 're-resizable'
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs'
 import { Modal } from '../modal/url-check-modal/modal'
 import { useModal } from '../modal/url-check-modal/use-modal'
@@ -122,16 +121,7 @@ export default props => {
           </div>
         </div>
       )}
-      {url && (
-        <Resizable
-          defaultSize={{ width: 576 }}
-          className={classes.videoInsert}
-          enable={{ left: true, right: true }}
-          contentEditable={false}
-        >
-          <VideoContent url={url} />
-        </Resizable>
-      )}
+      {url && <VideoContent url={url} />}
       {children}
       <PopperDialog {...bindPopover(popupState)}>
         <Tabs

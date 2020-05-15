@@ -8,23 +8,15 @@ const ImgPrevModal = ({ imgShow, hide, IUrl }) => {
   const bodyEl = document.body
 
   const stopBodyScroll = () => {
-    let top = 0
-    top = window.scrollY
-
-    bodyEl.style.position = 'fixed'
-    bodyEl.style.width = '100%'
-    bodyEl.style.overflow = 'hidden'
-    bodyEl.style.top = `${-top}px`
+    if (imgShow) {
+      bodyEl.style.overflow = 'hidden'
+      bodyEl.style.height = '100%'
+    } else {
+      bodyEl.style.height = ''
+      bodyEl.style.overflow = ''
+    }
   }
-  const backNormal = () => {
-    const top = window.scrollY
-    bodyEl.style.position = ''
-    bodyEl.style.top = ''
-    bodyEl.style.width = ''
-    bodyEl.style.overflow = ''
 
-    window.scrollTo(0, top)
-  }
   if (imgShow) {
     stopBodyScroll()
     return ReactDOM.createPortal(
@@ -34,7 +26,9 @@ const ImgPrevModal = ({ imgShow, hide, IUrl }) => {
             <div className={classes.modalPosition} />
             <div className={classes.modalContent}>
               <div className={classes.modalImgWrapper}>
-                <img src={IUrl} className={classes.rawImg} />
+                <div style={{ width: '100%', height: '100%' }}>
+                  <img src={IUrl} className={classes.rawImg} />
+                </div>
               </div>
             </div>
             <div className={classes.modalClose}>
@@ -48,7 +42,7 @@ const ImgPrevModal = ({ imgShow, hide, IUrl }) => {
       document.body
     )
   } else {
-    backNormal()
+    stopBodyScroll()
     return null
   }
 }
